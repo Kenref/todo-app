@@ -6,8 +6,6 @@
     --sidebar-min-width: 200px;
     --sidebar-width: 350px;
 
-    --content-containers-width: max(30vw, 200px);
-    --content-containers-height: 70vh;
 }
 
 #root-container {
@@ -15,6 +13,7 @@
     background: var(--main-background-gradient);
     display: flex;
     justify-content: space-between;
+    
 }
 
 #sidebar-container {
@@ -33,21 +32,30 @@ ul {
 
 #main-content-container {
     display: flex;
-    justify-content: space-around;
     align-items: center;
     width: 100vw;
-    
+
+
+  
+    /* change the space in between 2 boxes to clamp instead of using flex */
 }
 
 #todo-container, #info-container {
-    width: var(--content-containers-width);
-    height: var(--content-containers-height);
+    width: clamp(200px, 30vw, 800px);
+    height: 75vh;
+
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(15px);
 }
 
 #todo-container {
-    background-color: rgb(169, 81, 81);    
+    margin-right: clamp(50px, 5vw, 100px);
+    margin-left: clamp(50px, 5vw, 15vw);
 }
 
 #info-container {
-    background-color: rgb(127, 17, 17);
+
 }
