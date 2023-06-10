@@ -1,0 +1,29 @@
+:root {
+    --main-background-color:rgb(242,243,226);
+    --main-background-gradient: linear-gradient(90deg, rgba(242,243,226,1) 0%, rgba(178,229,248,1) 50%, rgba(244,179,239,1) 100%); 
+
+    --sidebar-color: white;
+    --sidebar-height: 100vh;
+    --sidebar-width: 300px;
+}
+
+#root-container {
+    background: var(--main-background-color);
+    background: var(--main-background-gradient);
+    
+
+}
+
+#sidebar-container {
+    background-color: var(--sidebar-color);
+    height: var(--sidebar-height);
+    width: var(--sidebar-width)
+}
+
+#main-content-container {
+
+}
+
+#secondary-content-container {
+    
+}
