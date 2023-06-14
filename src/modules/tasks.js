@@ -7,7 +7,7 @@ import {format} from "date-fns"
 // factory for the task
 const taskFactory = (task) => {
     const dueDate = format(new Date(), "dd.MM.yyyy"),
-	priority = "a";
+	priority = "none";
     return {task, dueDate, priority}
     //prio, date, description
     //put the edit stuff here
@@ -22,17 +22,22 @@ function getTaskFromInputBox() {
 
 // adds the task into the tasklist array
 const appendArray = (item, array) => {
-    if (!array.includes(item)) {
-        array.push(item);
+    const existingTask = array.find(task => task.task === item.task)
+    if (!existingTask) {
+        array.push(item)
+        console.log(array)
     }
-    console.log(array)
+
     //make it so that you can add 2 of the same tasks
 }
 
 // adds the task onto the dom which is shown on screen
 function populatePage(array) {
     const taskContainer = document.getElementById("task-container")
-
+    const existingTasks = taskContainer.querySelectorAll(".individual-task-container")
+    existingTasks.forEach(task => {
+        taskContainer.removeChild(task)
+    })
     array.forEach(task => {
         const individualTaskContainer = document.createElement("div")
         individualTaskContainer.classList.add("individual-task-container")
@@ -50,9 +55,7 @@ function createNewTask(array) {
         const newTask = taskFactory(getTaskFromInputBox())
         appendArray(newTask, array)
         populatePage(array)
-
-
-
+        
     })
 }
 
