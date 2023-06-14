@@ -4,21 +4,26 @@ import {format} from "date-fns"
 //create element etc. in the function parameter include elements that want to be included such as due date and task name etc
 
 
-
-
-
 // factory for the task
 const taskFactory = (task) => {
-    
-    return task
+    const dueDate = format(new Date(), "dd.MM.yyyy"),
+	priority = "a";
+    return {task, dueDate, priority}
     //prio, date, description
     //put the edit stuff here
+}
+
+
+//get whatever is in the text box
+function getTaskFromInputBox() {
+    const newTask = document.getElementById("new-task").value
+    return newTask
 }
 
 // adds the task into the tasklist array
 const appendArray = (item, array) => {
     if (!array.includes(item)) {
-        array.push(taskFactory(item));
+        array.push(item);
     }
     console.log(array)
     //make it so that you can add 2 of the same tasks
@@ -32,24 +37,22 @@ function populatePage(array) {
         const individualTaskContainer = document.createElement("div")
         individualTaskContainer.classList.add("individual-task-container")
         individualTaskContainer.innerHTML =
-            `<h3>${task}</h3>`
+            `<h3>${task.task}</h3>
+            <h3>${task.dueDate}</h3>`
         taskContainer.appendChild(individualTaskContainer)
     });
 }
 
-//get whatever is in the text box
-function getTask() {
-    const newTask = document.getElementById("new-task").value
-    return newTask
-}
-
 // consolidates all the other modules
-function addTask(array) {
+function createNewTask(array) {
     const createTaskButton = document.getElementById("create-task-button")
-    createTaskButton.addEventListener("click", function() {
-        appendArray(getTask(), array)
+    createTaskButton.addEventListener("click", function () {
+        const newTask = taskFactory(getTaskFromInputBox())
+        appendArray(newTask, array)
         populatePage(array)
-        
+
+
+
     })
 }
 
@@ -60,33 +63,13 @@ function addTask(array) {
 
 
 
-// function createTask(task) {
-//     const taskContainer = document.createElement("task-container")
-
-//     const individualTask = document.createElement("div")
-//     individualTask.classList.add("individual-task")
-
-//     const taskName = document.createElement("span")
-//     const taskDueDate = document.createElement("span")
-//     taskName.textContent = task
-//     taskDueDate.textContent = format(new Date(), "dd.MM.yyyy");
-//     individualTask.appendChild(taskName)
-//     individualTask.appendChild(taskDueDate)
-
-//     taskContainer.appendChild(individualTask)
-
-// }
 
 
 
 
 
-
-
-
-
-// export {createTask, getTask}
-export { taskFactory, appendArray, populatePage, getTask, addTask }
+// export {createTask, getTaskFromInputBox}
+export { taskFactory, appendArray, populatePage, getTaskFromInputBox, createNewTask }
 
 
 
