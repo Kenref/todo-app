@@ -64,18 +64,11 @@ function createNewTask(array) {
 
 
 
-// make a closure for storage
 
 
 
 
-
-
-
-
-
-
-export { createNewTask }
+export { createNewTask, populateTaskContainer }
 
 
 
