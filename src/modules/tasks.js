@@ -1,14 +1,13 @@
 import {format} from "date-fns"
-
-//create a todo
-//create element etc. in the function parameter include elements that want to be included such as due date and task name etc
+import "../css/task-container.css"
 
 
 // factory for the task
 const taskFactory = (task) => {
     const dueDate = format(new Date(), "dd.MM.yyyy"),
-	priority = "none";
-    return {task, dueDate, priority}
+        priority = "none",
+        description = "";
+    return {task, dueDate, priority, description}
     //prio, date, description
     //put the edit stuff here
 }
@@ -27,12 +26,10 @@ const appendArray = (item, array) => {
         array.push(item)
         console.log(array)
     }
-
-    //make it so that you can add 2 of the same tasks
 }
 
 // adds the task onto the dom which is shown on screen
-function populatePage(array) {
+function populateTaskContainer(array) {
     const taskContainer = document.getElementById("task-container")
     const existingTasks = taskContainer.querySelectorAll(".individual-task-container")
     existingTasks.forEach(task => {
@@ -54,9 +51,30 @@ function createNewTask(array) {
     createTaskButton.addEventListener("click", function () {
         const newTask = taskFactory(getTaskFromInputBox())
         appendArray(newTask, array)
-        populatePage(array)
-        
+        populateTaskContainer(array)
+        populateInfoContainer(array)
     })
+}
+
+function populateInfoContainer(array) {
+    // const infoContainer = document.getElementById("info-container")
+
+    const priority = document.getElementById("priority")
+    const description = document.getElementById("description")
+
+    // priority.textContent = array[0].priority
+    description.textContent = array[0].description
+
+
+}
+
+function handlePriority() {
+    const dropdownBox = document.getElementById("priority")
+        
+    dropdownBox.addEventListener("click", function () {
+        console.log(dropdownBox.value)
+    })
+
 }
 
 
@@ -71,8 +89,10 @@ function createNewTask(array) {
 
 
 
-// export {createTask, getTaskFromInputBox}
-export { taskFactory, appendArray, populatePage, getTaskFromInputBox, createNewTask }
+
+
+
+export { createNewTask, populateInfoContainer, handlePriority }
 
 
 
