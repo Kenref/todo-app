@@ -1,10 +1,11 @@
 import {format} from "date-fns"
 import "../css/task-container.css"
+import { storageSet, storageGet, storageDelete } from "./local-storage";
 
 
 // factory for the task
 const taskFactory = (task) => {
-    const dueDate = format(new Date(), "dd.MM.yyyy"),
+    const dueDate = format(new Date(), "dd/MM/yyyy"),
         priority = "none",
         description = "";
     return {task, dueDate, priority, description}
@@ -22,9 +23,12 @@ function getTaskFromInputBox() {
 // adds the task into the tasklist array
 const appendArray = (item, array) => {
     const existingTask = array.find(task => task.task === item.task)
+    const existingStorage = storageGet("taskList") || []
     if (!existingTask) {
         array.push(item)
-        console.log(array)
+        existingStorage.push(item)
+        storageSet("taskList", existingStorage)
+
     }
 }
 
@@ -52,30 +56,15 @@ function createNewTask(array) {
         const newTask = taskFactory(getTaskFromInputBox())
         appendArray(newTask, array)
         populateTaskContainer(array)
-        populateInfoContainer(array)
     })
 }
 
-function populateInfoContainer(array) {
-    // const infoContainer = document.getElementById("info-container")
-
-    const priority = document.getElementById("priority")
-    const description = document.getElementById("description")
-
-    // priority.textContent = array[0].priority
-    description.textContent = array[0].description
 
 
-}
 
-function handlePriority() {
-    const dropdownBox = document.getElementById("priority")
-        
-    dropdownBox.addEventListener("click", function () {
-        console.log(dropdownBox.value)
-    })
 
-}
+
+// make a closure for storage
 
 
 
@@ -86,13 +75,7 @@ function handlePriority() {
 
 
 
-
-
-
-
-
-
-export { createNewTask, populateInfoContainer, handlePriority }
+export { createNewTask }
 
 
 
