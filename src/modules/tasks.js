@@ -59,6 +59,17 @@ function createNewTask(array) {
     })
 }
 
+function openTask(array) {
+    const individualTaskContainer = document.querySelectorAll(".individual-task-container")
+    individualTaskContainer.forEach(task => {
+        task.addEventListener("click", function () {
+            console.log(task)
+        })
+    })
+
+
+
+}
 
 
 
@@ -67,8 +78,7 @@ function createNewTask(array) {
 
 
 
-
-export { createNewTask, populateTaskContainer }
+export { createNewTask, populateTaskContainer, openTask }
 
 
 

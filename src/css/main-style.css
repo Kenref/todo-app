@@ -73,7 +73,7 @@ li {
     padding: 50px 100px 0px 100px;
 
 
-    width: 800px;
+    width: 500px;
     height: 75vh;
 
     border: 1px solid rgba(255, 255, 255, .25);
@@ -88,4 +88,8 @@ li {
 .individual-task-container {
     display: flex;
     justify-content: space-between;
+}
+
+.individual-task-container:hover {
+    border: solid red 1px;
 }
