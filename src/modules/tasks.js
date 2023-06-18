@@ -65,30 +65,46 @@ function openTask(array) {
     const individualTaskContainer = document.querySelectorAll(".individual-task-container")
 
     individualTaskContainer.forEach(task => {
-        task.addEventListener("click", function () {
-            const taskIndex = parseInt(task.getAttribute("task-index"), 10);
-            const currentTask = array[taskIndex]
+        task.removeEventListener("click", openModal)
+        task.addEventListener("click", openModal)
 
-            const taskName = document.getElementById("task-name")
-            const taskDescription = document.getElementById("task-description")
-            const taskDueDate = document.getElementById("task-due-date")
-            const taskPriority = document.getElementById("task-priority")
-            
-            taskName.textContent = currentTask.task
-            taskDescription.textContent = currentTask.description
-            taskDueDate.textContent = currentTask.dueDate
-            taskPriority.textContent = currentTask.priority
-            
-            modal.showModal()
-        })
+        function openModal() {
+            task.addEventListener("click", function () {
+                const taskIndex = parseInt(task.getAttribute("task-index"), 10);
+                const currentTask = array[taskIndex]
+                
+                const taskName = document.getElementById("task-name")
+                const taskDescription = document.getElementById("task-description")
+                const taskDueDate = document.getElementById("task-due-date")
+                const taskPriority = document.getElementById("task-priority")
+                
+                taskName.textContent = currentTask.task
+                taskDescription.textContent = currentTask.description
+                taskDueDate.textContent = currentTask.dueDate
+                taskPriority.textContent = currentTask.priority
+                
+                modal.showModal()
+            })
+        }
     })
 }
+
+
+
+
+
+
+
 
 function editTask(array) {
     const individualTaskContainer = document.querySelectorAll(".individual-task-container")
 
     individualTaskContainer.forEach(task => {
-        task.addEventListener("click", function () {
+        task.removeEventListener("click", editModal)
+        task.addEventListener("click", editModal)
+
+
+        function editModal() {
             const taskIndex = parseInt(task.getAttribute("task-index"), 10);
             const currentTask = array[taskIndex];
             
@@ -120,7 +136,8 @@ function editTask(array) {
                 }
             })
 
-        })
+        }
+
 
     })
 
