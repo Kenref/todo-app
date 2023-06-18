@@ -75,7 +75,6 @@ function openTask(array) {
             const taskPriority = document.getElementById("task-priority");
 
             taskName.textContent = currentTask.task;
-            taskName.setAttribute("contentEditable", "true")
             taskDescription.textContent = currentTask.description
             taskDueDate.textContent = currentTask.dueDate
             taskPriority.textContent = currentTask.priority
@@ -86,28 +85,29 @@ function openTask(array) {
     })
 }
 
-
-
-
-
-
-
-
 function editTask(array) {
     const individualTaskContainer = document.querySelectorAll(".individual-task-container")
 
     individualTaskContainer.forEach(task => {
-        task.removeEventListener("click", editModal)
-        task.addEventListener("click", editModal)
+        const taskIndex = parseInt(task.getAttribute("task-index"), 10)
+        const currentTask = array[taskIndex];
 
+        const taskName = document.getElementById("task-name");
+        const taskDescription = document.getElementById("task-description");
+        const taskDueDate = document.getElementById("task-due-date");
+        const taskPriority = document.getElementById("task-priority");
 
-        function editModal() {
-            const taskIndex = parseInt(task.getAttribute("task-index"), 10);
-            const currentTask = array[taskIndex];
+        taskName.textContent = currentTask.task;
+        taskName.setAttribute("contentEditable", "true");
+        taskDescription.textContent = currentTask.description;
+        taskDueDate.textContent = currentTask.dueDate;
+        taskPriority.textContent = currentTask.priority;
 
-        }
-
-
+        taskName.addEventListener("input", function () {
+            currentTask.task = taskName.textContent
+            populateTaskContainer(array)
+            storageSet("taskList", array)
+        })
     })
 
 }
