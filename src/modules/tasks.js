@@ -75,6 +75,7 @@ function openTask(array) {
             const taskPriority = document.getElementById("task-priority");
 
             taskName.textContent = currentTask.task;
+            taskName.setAttribute("contentEditable", "true")
             taskDescription.textContent = currentTask.description
             taskDueDate.textContent = currentTask.dueDate
             taskPriority.textContent = currentTask.priority
