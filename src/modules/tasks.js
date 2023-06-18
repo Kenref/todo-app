@@ -91,6 +91,34 @@ function editTask(array) {
         task.addEventListener("click", function () {
             const taskIndex = parseInt(task.getAttribute("task-index"), 10);
             const currentTask = array[taskIndex];
+            
+            const taskName = document.getElementById("task-name");
+            const taskDescription = document.getElementById("task-description");
+            const taskDueDate = document.getElementById("task-due-date");
+            const taskPriority = document.getElementById("task-priority");
+
+            taskName.textContent = currentTask.task;
+            taskName.setAttribute("contentEditable", "true")
+            taskDescription.textContent = currentTask.description;
+            taskDueDate.textContent = currentTask.dueDate;
+            taskPriority.textContent = currentTask.priority;
+
+            taskName.addEventListener("input", function () {
+                currentTask.task = taskName.textContent;
+                populateTaskContainer(array)
+            })
+
+
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Enter") {
+                    e.preventDefault()
+                    currentTask.task = taskName.textContent;
+
+
+
+                    storageSet("taskList", array)
+                }
+            })
 
         })
 
@@ -135,7 +163,7 @@ function closeTask() {
 
 
 
-export { createNewTask, populateTaskContainer, openTask, closeTask }
+export { createNewTask, populateTaskContainer, openTask, closeTask, editTask }
 
 
 
