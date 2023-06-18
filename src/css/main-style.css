@@ -102,8 +102,5 @@ dialog {
 
 .dialog-content {
     display: flex;
-<<<<<<< HEAD
-=======
-    gap: 40%;
->>>>>>> parent of b901a29 (adding task edit functionality)
+    gap: 30%;
 }

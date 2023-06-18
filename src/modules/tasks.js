@@ -108,12 +108,8 @@ function editTask(array) {
             const taskIndex = parseInt(task.getAttribute("task-index"), 10);
             const currentTask = array[taskIndex];
 
-<<<<<<< HEAD
         }
 
-=======
-        })
->>>>>>> parent of b901a29 (adding task edit functionality)
 
     })
 
@@ -156,10 +152,7 @@ function closeTask() {
 
 
 
-<<<<<<< HEAD
-=======
 export { createNewTask, populateTaskContainer, openTask, closeTask }
->>>>>>> parent of b901a29 (adding task edit functionality)
 
 
 
