@@ -93,3 +93,14 @@ li {
 .individual-task-container:hover {
     border: solid red 1px;
 }
+
+dialog {
+    margin-top: 300px;
+    z-index: 1;
+    width: 500px;
+}
+
+.dialog-content {
+    display: flex;
+    gap: 40%;
+}

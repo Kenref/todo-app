@@ -39,11 +39,12 @@ function populateTaskContainer(array) {
     existingTasks.forEach(task => {
         taskContainer.removeChild(task)
     })
-    array.forEach(task => {
+    array.forEach((task, index) => {
         const individualTaskContainer = document.createElement("div")
         individualTaskContainer.classList.add("individual-task-container")
+        individualTaskContainer.setAttribute("task-index", index)
         individualTaskContainer.innerHTML =
-            `<h3>${task.task}</h3>
+            `<h3 id=${task.task}>${task.task}</h3>
             <h3>${task.dueDate}</h3>`
         taskContainer.appendChild(individualTaskContainer)
     });
@@ -60,14 +61,40 @@ function createNewTask(array) {
 }
 
 function openTask(array) {
+    const modal = document.querySelector("dialog")
     const individualTaskContainer = document.querySelectorAll(".individual-task-container")
+
     individualTaskContainer.forEach(task => {
         task.addEventListener("click", function () {
-            console.log(task)
+            const taskIndex = parseInt(task.getAttribute("task-index"), 10);
+            const currentTask = array[taskIndex]
+
+            const taskName = document.getElementById("task-name")
+            const taskDescription = document.getElementById("task-description")
+            const taskDueDate = document.getElementById("task-due-date")
+            const taskPriority = document.getElementById("task-priority")
+            
+            taskName.textContent = currentTask.task
+            taskDescription.textContent = currentTask.description
+            taskDueDate.textContent = currentTask.dueDate
+            taskPriority.textContent = currentTask.priority
+            
+            modal.showModal()
         })
     })
+}
 
+function editTask(array) {
+    const individualTaskContainer = document.querySelectorAll(".individual-task-container")
 
+    individualTaskContainer.forEach(task => {
+        task.addEventListener("click", function () {
+            const taskIndex = parseInt(task.getAttribute("task-index"), 10);
+            const currentTask = array[taskIndex];
+
+        })
+
+    })
 
 }
 
@@ -78,7 +105,37 @@ function openTask(array) {
 
 
 
-export { createNewTask, populateTaskContainer, openTask }
+
+
+
+
+
+
+
+function closeTask() {
+    const modal = document.querySelector("dialog")
+    modal.addEventListener("click", e => {
+        const dialogDimensions = modal.getBoundingClientRect()
+        if (
+            e.clientX < dialogDimensions.left ||
+            e.clientX > dialogDimensions.right ||
+            e.clientY < dialogDimensions.top ||
+            e.clientY > dialogDimensions.bottom
+        ) {
+            modal.close()
+        }
+    })
+}
+
+
+
+
+
+
+
+
+
+export { createNewTask, populateTaskContainer, openTask, closeTask }
 
 
 
