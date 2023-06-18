@@ -1,6 +1,6 @@
 import "normalize.css/normalize.css";
 import "./css/main-style.css";
-import { createNewTask, populateTaskContainer, openTask, closeTask } from "./modules/tasks";
+import { createNewTask, populateTaskContainer, openTask, closeTask, editTask } from "./modules/tasks";
 import { storageSet,storageGet } from "./modules/local-storage";
 
 
@@ -10,3 +10,4 @@ populateTaskContainer(taskList)
 createNewTask(taskList)
 openTask(taskList)
 closeTask()
+editTask(taskList)

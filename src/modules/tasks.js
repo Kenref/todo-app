@@ -65,27 +65,23 @@ function openTask(array) {
     const individualTaskContainer = document.querySelectorAll(".individual-task-container")
 
     individualTaskContainer.forEach(task => {
-        task.removeEventListener("click", openModal)
-        task.addEventListener("click", openModal)
+        task.addEventListener("click", function () {
+            const taskIndex = parseInt(task.getAttribute("task-index"), 10)
+            const currentTask = array[taskIndex]
 
-        function openModal() {
-            task.addEventListener("click", function () {
-                const taskIndex = parseInt(task.getAttribute("task-index"), 10);
-                const currentTask = array[taskIndex]
-                
-                const taskName = document.getElementById("task-name")
-                const taskDescription = document.getElementById("task-description")
-                const taskDueDate = document.getElementById("task-due-date")
-                const taskPriority = document.getElementById("task-priority")
-                
-                taskName.textContent = currentTask.task
-                taskDescription.textContent = currentTask.description
-                taskDueDate.textContent = currentTask.dueDate
-                taskPriority.textContent = currentTask.priority
-                
-                modal.showModal()
-            })
-        }
+            const taskName = document.getElementById("task-name")
+            const taskDescription = document.getElementById("task-description");
+            const taskDueDate = document.getElementById("task-due-date");
+            const taskPriority = document.getElementById("task-priority");
+
+            taskName.textContent = currentTask.task;
+            taskDescription.textContent = currentTask.description
+            taskDueDate.textContent = currentTask.dueDate
+            taskPriority.textContent = currentTask.priority
+
+            modal.showModal()
+
+        })
     })
 }
 
@@ -152,7 +148,7 @@ function closeTask() {
 
 
 
-export { createNewTask, populateTaskContainer, openTask, closeTask }
+export { createNewTask, populateTaskContainer, openTask, closeTask, editTask }
 
 
 
