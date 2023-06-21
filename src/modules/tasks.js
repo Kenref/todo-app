@@ -85,34 +85,53 @@ function openTask(array) {
     })
 }
 
-function editTask(array) {
-    const individualTaskContainer = document.querySelectorAll(".individual-task-container")
 
-    individualTaskContainer.forEach(task => {
-        const taskIndex = parseInt(task.getAttribute("task-index"), 10)
-        const currentTask = array[taskIndex];
 
-        const taskName = document.getElementById("task-name");
-        const taskDescription = document.getElementById("task-description");
-        const taskDueDate = document.getElementById("task-due-date");
-        const taskPriority = document.getElementById("task-priority");
+function editTask() {
+    const individualTaskContainer = document.querySelectorAll(".individual-task-container");
+    const existingStorage = storageGet("taskList");
+    
 
-        taskName.textContent = currentTask.task;
-        taskName.setAttribute("contentEditable", "true");
-        taskDescription.textContent = currentTask.description;
-        taskDueDate.textContent = currentTask.dueDate;
-        taskPriority.textContent = currentTask.priority;
 
-        taskName.addEventListener("input", function () {
-            currentTask.task = taskName.textContent
-            populateTaskContainer(array)
-            storageSet("taskList", array)
-        })
+    const taskName = document.getElementById("task-name")
+
+    taskName.addEventListener("click", function () {
+        taskName.setAttribute("contentEditable", "true")
     })
 
+    //     task.addEventListener("keydown", function (e) {
+    //         if (e.target.index === indexOfexistingstorage) {
+
+
+
+    taskName.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            e.preventDefault()
+
+            const individualTaskContainerArray = Array.from(individualTaskContainer)
+            // console.log(individualTaskContainerArray)
+            // console.log(existingStorage)
+
+            // individualTaskContainerArray.forEach((task) => {
+            //     console.log(task.getAttribute("task-index"))
+            // })
+
+            for (let i = 0; i < individualTaskContainerArray.length; i++) {
+                // console.log(individualTaskContainer[i].getAttribute("task-index"))
+                console.log(individualTaskContainerArray[i].textContent.split("\n")[0])
+
+                console.log(existingStorage[i].task)
+                
+            }
+
+            storageSet("taskList", existingStorage)
+            //get the # of the array
+            taskName.blur()
+        }
+    })
+
+
 }
-
-
 
 
 
