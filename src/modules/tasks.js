@@ -63,6 +63,7 @@ function createNewTask(array) {
 function openTask(array) {
     const modal = document.querySelector("dialog")
     const individualTaskContainer = document.querySelectorAll(".individual-task-container")
+    const dialogContainer = document.querySelector(".dialog-content");
 
     individualTaskContainer.forEach(task => {
         task.addEventListener("click", function () {
@@ -79,9 +80,16 @@ function openTask(array) {
             taskDueDate.textContent = currentTask.dueDate
             taskPriority.textContent = currentTask.priority
 
-            taskName.setAttribute("class", taskIndex)
 
-            modal.showModal()
+            dialogContainer.setAttribute("class", taskIndex);
+
+            // taskName.setAttribute("class", taskIndex)
+            taskName.setAttribute("contentEditable", "true")
+
+            modal.showModal();
+            taskName.blur()
+
+
 
         })
     })
@@ -90,33 +98,50 @@ function openTask(array) {
 
 
 
-function editTask() {
-    const individualTaskContainer = document.querySelectorAll(".individual-task-container");
-    const existingStorage = storageGet("taskList");
-    const taskName = document.getElementById("task-name")
+function editName() {
+	const existingStorage = storageGet("taskList");
+    const taskName = document.getElementById("task-name");
 
-    taskName.addEventListener("click", function () {
-        taskName.setAttribute("contentEditable", "true")
-    })
-
-    taskName.addEventListener("keydown", function (e) {
-        if (e.key === "Enter") {
-            e.preventDefault()
-            const index = e.target.className
-            existingStorage[index].task = taskName.textContent
-            storageSet("taskList", existingStorage)
-            populateTaskContainer(storageGet("taskList"))
-            taskName.blur()
-        }
-    })
+	taskName.addEventListener("keydown", function (e) {
+		if (e.key === "Enter") {
+			e.preventDefault();
+            const index = e.target.parentNode.parentNode.classList.value;
+			existingStorage[index].task = taskName.textContent;
+			storageSet("taskList", existingStorage);
+			populateTaskContainer(storageGet("taskList"));
+			taskName.blur();
+		}
+	});
 }
 
 
+// function for edit description, due date, and prio
+function editDescription() {
+    const existingStorage = storageGet("taskList")
+    const taskDescription  = document.getElementById("task-description")
 
 
+    taskDescription.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" && !e.shiftKey) {
+			e.preventDefault();
+            // const index = e.target;
+            // console.log(index)
 
+            // trying to add task index to the container instead of just the class name
 
+			// existingStorage[index].description = taskDescription.textContent;
+			// storageSet("taskList", existingStorage);
+		}
+    })
+}
 
+function editDate() {
+
+}
+
+function editPriority() {
+    
+}
 
 
 
@@ -144,7 +169,7 @@ function closeTask() {
 
 
 
-export { createNewTask, populateTaskContainer, openTask, closeTask, editTask }
+export { createNewTask, populateTaskContainer, openTask, closeTask, editName, editDescription }
 
 
 
