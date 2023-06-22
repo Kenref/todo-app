@@ -7,7 +7,7 @@ import { storageSet, storageGet, storageDelete } from "./local-storage";
 const taskFactory = (task) => {
     const dueDate = format(new Date(), "dd/MM/yyyy"),
         priority = "none",
-        description = "";
+        description = "Enter task description";
     return {task, dueDate, priority, description}
     //prio, date, description
     //put the edit stuff here
@@ -67,31 +67,32 @@ function openTask(array) {
 
     individualTaskContainer.forEach(task => {
         task.addEventListener("click", function () {
-            const taskIndex = parseInt(task.getAttribute("task-index"), 10)
-            const currentTask = array[taskIndex]
+			const taskIndex = parseInt(task.getAttribute("task-index"), 10);
+			const currentTask = array[taskIndex];
 
-            const taskName = document.getElementById("task-name")
-            const taskDescription = document.getElementById("task-description");
-            const taskDueDate = document.getElementById("task-due-date");
-            const taskPriority = document.getElementById("task-priority");
+			const taskName = document.getElementById("task-name");
+			const taskDescription = document.getElementById("task-description");
+			const taskDueDate = document.getElementById("task-due-date");
+			const taskPriority = document.getElementById("task-priority");
 
-            taskName.textContent = currentTask.task;
-            taskDescription.textContent = currentTask.description
-            taskDueDate.textContent = currentTask.dueDate
-            taskPriority.textContent = currentTask.priority
+			taskName.textContent = currentTask.task;
+			taskDescription.value = currentTask.description;
+			taskDueDate.textContent = currentTask.dueDate;
+			taskPriority.textContent = currentTask.priority;
 
+    
 
-            dialogContainer.setAttribute("class", taskIndex);
+			dialogContainer.setAttribute("class", `${taskIndex} dialog-content`);
+			// dialogContainer.setAttribute("class", taskIndex);
 
-            // taskName.setAttribute("class", taskIndex)
-            taskName.setAttribute("contentEditable", "true")
+			// dialogContainer.classList.add("dialog-content")
 
-            modal.showModal();
-            taskName.blur()
+			// taskName.setAttribute("class", taskIndex)
+			taskName.setAttribute("contentEditable", "true");
 
-
-
-        })
+			modal.showModal();
+			taskName.blur();
+		})
     })
 }
 
@@ -118,19 +119,16 @@ function editName() {
 // function for edit description, due date, and prio
 function editDescription() {
     const existingStorage = storageGet("taskList")
-    const taskDescription  = document.getElementById("task-description")
-
+    const taskDescription = document.getElementById("task-description")
 
     taskDescription.addEventListener("keydown", function (e) {
         if (e.key === "Enter" && !e.shiftKey) {
 			e.preventDefault();
-            // const index = e.target;
-            // console.log(index)
-
-            // trying to add task index to the container instead of just the class name
-
-			// existingStorage[index].description = taskDescription.textContent;
-			// storageSet("taskList", existingStorage);
+            const index = e.target.parentNode.parentNode.classList[0];
+            existingStorage[index].description = taskDescription.value;
+            storageSet("taskList", existingStorage);
+            populateTaskContainer(storageGet("taskList"))
+            taskDescription.blur()
 		}
     })
 }
