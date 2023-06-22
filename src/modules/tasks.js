@@ -79,6 +79,8 @@ function openTask(array) {
             taskDueDate.textContent = currentTask.dueDate
             taskPriority.textContent = currentTask.priority
 
+            taskName.setAttribute("class", taskIndex)
+
             modal.showModal()
 
         })
@@ -87,53 +89,27 @@ function openTask(array) {
 
 
 
+
 function editTask() {
     const individualTaskContainer = document.querySelectorAll(".individual-task-container");
     const existingStorage = storageGet("taskList");
-    
-
-
     const taskName = document.getElementById("task-name")
 
     taskName.addEventListener("click", function () {
         taskName.setAttribute("contentEditable", "true")
     })
 
-    //     task.addEventListener("keydown", function (e) {
-    //         if (e.target.index === indexOfexistingstorage) {
-
-
-
     taskName.addEventListener("keydown", function (e) {
         if (e.key === "Enter") {
             e.preventDefault()
-
-            const individualTaskContainerArray = Array.from(individualTaskContainer)
-            // console.log(individualTaskContainerArray)
-            // console.log(existingStorage)
-
-            // individualTaskContainerArray.forEach((task) => {
-            //     console.log(task.getAttribute("task-index"))
-            // })
-
-            for (let i = 0; i < individualTaskContainerArray.length; i++) {
-                // console.log(individualTaskContainer[i].getAttribute("task-index"))
-                console.log(individualTaskContainerArray[i].textContent.split("\n")[0])
-
-                console.log(existingStorage[i].task)
-                
-            }
-
+            const index = e.target.className
+            existingStorage[index].task = taskName.textContent
             storageSet("taskList", existingStorage)
-            //get the # of the array
+            populateTaskContainer(storageGet("taskList"))
             taskName.blur()
         }
     })
-
-
 }
-
-
 
 
 
