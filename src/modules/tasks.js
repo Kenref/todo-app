@@ -80,14 +80,7 @@ function openTask(array) {
 			taskDueDate.textContent = currentTask.dueDate;
 			taskPriority.textContent = currentTask.priority;
 
-    
-
 			dialogContainer.setAttribute("class", `${taskIndex} dialog-content`);
-			// dialogContainer.setAttribute("class", taskIndex);
-
-			// dialogContainer.classList.add("dialog-content")
-
-			// taskName.setAttribute("class", taskIndex)
 			taskName.setAttribute("contentEditable", "true");
 
 			modal.showModal();
@@ -99,14 +92,15 @@ function openTask(array) {
 
 
 
+
 function editName() {
 	const existingStorage = storageGet("taskList");
     const taskName = document.getElementById("task-name");
 
 	taskName.addEventListener("keydown", function (e) {
 		if (e.key === "Enter") {
-			e.preventDefault();
-            const index = e.target.parentNode.parentNode.classList.value;
+            e.preventDefault();
+            const index = e.target.parentNode.parentNode.classList[0];
 			existingStorage[index].task = taskName.textContent;
 			storageSet("taskList", existingStorage);
 			populateTaskContainer(storageGet("taskList"));
@@ -123,7 +117,7 @@ function editDescription() {
 
     taskDescription.addEventListener("keydown", function (e) {
         if (e.key === "Enter" && !e.shiftKey) {
-			e.preventDefault();
+            e.preventDefault();
             const index = e.target.parentNode.parentNode.classList[0];
             existingStorage[index].description = taskDescription.value;
             storageSet("taskList", existingStorage);
