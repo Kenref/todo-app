@@ -6,7 +6,7 @@ import { storageSet, storageGet, storageDelete } from "./local-storage";
 // factory for the task
 const taskFactory = (task) => {
     const dueDate = format(new Date(), "dd/MM/yyyy"),
-        priority = "none",
+        priority = "None",
         description = "Enter task description";
     return {task, dueDate, priority, description}
     //prio, date, description
@@ -57,6 +57,8 @@ function createNewTask(array) {
         const newTask = taskFactory(getTaskFromInputBox())
         appendArray(newTask, array)
         populateTaskContainer(array)
+        openTask(storageGet("taskList"));
+
     })
 }
 
@@ -76,13 +78,13 @@ function openTask(array) {
 			const taskPriority = document.getElementById("task-priority");
 
 			taskName.textContent = currentTask.task;
-			taskDescription.value = currentTask.description;
+            taskDescription.value = currentTask.description;
+            //can change to taskDueDate.value
 			taskDueDate.textContent = currentTask.dueDate;
-			taskPriority.textContent = currentTask.priority;
+			taskPriority.value = currentTask.priority;
 
 			dialogContainer.setAttribute("class", `${taskIndex} dialog-content`);
 			taskName.setAttribute("contentEditable", "true");
-
 			modal.showModal();
 			taskName.blur();
 		})
@@ -104,7 +106,8 @@ function editName() {
 			existingStorage[index].task = taskName.textContent;
 			storageSet("taskList", existingStorage);
 			populateTaskContainer(storageGet("taskList"));
-			taskName.blur();
+            taskName.blur();
+            openTask(storageGet("taskList"))
 		}
 	});
 }
@@ -123,16 +126,43 @@ function editDescription() {
             storageSet("taskList", existingStorage);
             populateTaskContainer(storageGet("taskList"))
             taskDescription.blur()
+            openTask(storageGet("taskList"));
+
 		}
     })
 }
 
 function editDate() {
+// change to today, tomorrow, next week
+    const taskDate = document.getElementById("task-due-date")
+    const existingStorage = storageGet("taskList")
+
+    taskDate.addEventListener("change", function (e) {
+        let result = new Date(taskDate.value);
+        result = format(result, "dd/MM/yyyy")
+        const index = e.target.parentNode.parentNode.classList[0];
+        existingStorage[index].dueDate = result;
+        storageSet("taskList", existingStorage)
+        populateTaskContainer(storageGet("taskList"));
+        openTask(storageGet("taskList"));
+
+
+    })
 
 }
 
 function editPriority() {
+    const existingStorage = storageGet("taskList");
+    const taskPriority = document.getElementById("task-priority");
+
+    taskPriority.addEventListener("click", function (e) {
+        const index = e.target.parentNode.parentNode.parentNode.classList[0];
+        existingStorage[index].priority = taskPriority.value;
+        storageSet("taskList", existingStorage);
+        populateTaskContainer(storageGet("taskList"));
+        openTask(storageGet("taskList"));
     
+    });
 }
 
 
@@ -161,7 +191,7 @@ function closeTask() {
 
 
 
-export { createNewTask, populateTaskContainer, openTask, closeTask, editName, editDescription }
+export { createNewTask, populateTaskContainer, openTask, closeTask, editName, editDescription, editDate, editPriority }
 
 
 

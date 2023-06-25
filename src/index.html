@@ -7,7 +7,7 @@
     <title>To-Do List application</title>
 </head>
 <body>
-    <dialog>
+    <dialog open>
         <div class="dialog-content">
             <div class="dialog-left">
                 <h2 id="task-name"></h2>
@@ -15,13 +15,18 @@
             </div>
             <div class="dialog-right">
                 <h4>Due Date:</h4>
-                <p id="task-due-date">lorem</p>
+                <input id="task-due-date" type="date">
+                
                 <h4>Priority:</h4>
-                <p id="task-priority">loram</p>
+                <select id="task-priority">
+                    <option value="none">None</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
             </div>
         </div>
     </dialog>
-
 
     <div id="root-container">
 
@@ -59,13 +64,3 @@
 
 
 
-<!-- <div id="info-container">
-                <h3>Priority: </h3>
-                <select name="priority" id="priority">
-                    <option value="high">High</option>
-                    <option value="medium">Medium</option>
-                    <option value="low">Low</option>
-                    <option value="none">None</option>
-                </select>
-                <h3>Description:</h3>
-                <p id="description"></p> -->
