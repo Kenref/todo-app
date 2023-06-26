@@ -1,13 +1,14 @@
-import {format} from "date-fns"
+import {format, toDate, isDate} from "date-fns"
 import "../css/task-container.css"
 import { storageSet, storageGet, storageDelete } from "./local-storage";
 
 
 // factory for the task
 const taskFactory = (task) => {
-    const dueDate = format(new Date(), "dd/MM/yyyy"),
-        priority = "None",
-        description = "Enter task description";
+    // const dueDate = format(new Date(), "dd/MM/yyyy"),
+    const dueDate = new Date()
+    const priority = "None"
+    const description = "Enter task description";
     return {task, dueDate, priority, description}
     //prio, date, description
     //put the edit stuff here
@@ -45,10 +46,11 @@ function populateTaskContainer(array) {
         individualTaskContainer.setAttribute("task-index", index)
         individualTaskContainer.innerHTML =
             `<h3 id=${task.task}>${task.task}</h3>
-            <h3>${task.dueDate}</h3>`
+            <h3>${format(Date.parse(task.dueDate), "dd/MM/yyyy")}</h3>`
         taskContainer.appendChild(individualTaskContainer)
     });
 }
+    // result = format(result, "dd/MM/yyyy")
 
 // consolidates all the other modules
 function createNewTask(array) {
@@ -78,12 +80,19 @@ function openTask(array) {
 			const taskPriority = document.getElementById("task-priority");
 
 			taskName.textContent = currentTask.task;
-            taskDescription.value = currentTask.description;
-            //can change to taskDueDate.value
-			taskDueDate.textContent = currentTask.dueDate;
+			taskDescription.value = currentTask.description;
+
+            let date = currentTask.dueDate
+            date = toDate(Date.parse(date))
+            date = format(date, "yyyy-MM-dd")
+            taskDueDate.value = date
+
 			taskPriority.value = currentTask.priority;
 
-			dialogContainer.setAttribute("class", `${taskIndex} dialog-content`);
+			dialogContainer.setAttribute(
+				"class",
+				`${taskIndex} dialog-content`
+			);
 			taskName.setAttribute("contentEditable", "true");
 			modal.showModal();
 			taskName.blur();
@@ -139,16 +148,13 @@ function editDate() {
 
     taskDate.addEventListener("change", function (e) {
         let result = new Date(taskDate.value);
-        result = format(result, "dd/MM/yyyy")
         const index = e.target.parentNode.parentNode.classList[0];
         existingStorage[index].dueDate = result;
         storageSet("taskList", existingStorage)
         populateTaskContainer(storageGet("taskList"));
         openTask(storageGet("taskList"));
 
-
     })
-
 }
 
 function editPriority() {
