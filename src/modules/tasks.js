@@ -5,13 +5,10 @@ import { storageSet, storageGet, storageDelete } from "./local-storage";
 
 // factory for the task
 const taskFactory = (task) => {
-    // const dueDate = format(new Date(), "dd/MM/yyyy"),
     const dueDate = new Date()
     const priority = "None"
     const description = "Enter task description";
     return {task, dueDate, priority, description}
-    //prio, date, description
-    //put the edit stuff here
 }
 
 
@@ -121,8 +118,6 @@ function editName() {
 	});
 }
 
-
-// function for edit description, due date, and prio
 function editDescription() {
     const existingStorage = storageGet("taskList")
     const taskDescription = document.getElementById("task-description")
@@ -165,7 +160,6 @@ function editPriority() {
         e.preventDefault()
         const index = e.target.parentNode.parentNode.parentNode.classList[0]
         existingStorage[index].priority = taskPriority.value;
-
         storageSet("taskList", existingStorage);
         populateTaskContainer(storageGet("taskList"));
         openTask(storageGet("taskList"));
@@ -173,25 +167,23 @@ function editPriority() {
     });
 }
 
-
-
-
 function closeTask() {
-    const modal = document.querySelector("dialog")
-    modal.addEventListener("click", e => {
-        const dialogDimensions = modal.getBoundingClientRect()
-        if (
-            e.clientX < dialogDimensions.left ||
-            e.clientX > dialogDimensions.right ||
-            e.clientY < dialogDimensions.top ||
-            e.clientY > dialogDimensions.bottom
-        ) {
-            modal.close()
-        }
-    })
+	const modal = document.querySelector("dialog");
+	const dropdown = document.getElementById("task-priority");
+
+	modal.addEventListener("click", (e) => {
+		const dialogDimensions = modal.getBoundingClientRect();
+		if (
+			(e.clientX < dialogDimensions.left ||
+				e.clientX > dialogDimensions.right ||
+				e.clientY < dialogDimensions.top ||
+				e.clientY > dialogDimensions.bottom) &&
+			!dropdown.contains(e.target)
+		) {
+			modal.close();
+		}
+	});
 }
-
-
 
 
 
