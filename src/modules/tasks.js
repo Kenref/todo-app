@@ -162,8 +162,10 @@ function editPriority() {
     const taskPriority = document.getElementById("task-priority");
 
     taskPriority.addEventListener("click", function (e) {
-        const index = e.target.parentNode.parentNode.parentNode.classList[0];
+        e.preventDefault()
+        const index = e.target.parentNode.parentNode.parentNode.classList[0]
         existingStorage[index].priority = taskPriority.value;
+
         storageSet("taskList", existingStorage);
         populateTaskContainer(storageGet("taskList"));
         openTask(storageGet("taskList"));
