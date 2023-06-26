@@ -14,18 +14,20 @@ const taskFactory = (task) => {
 
 //get whatever is in the text box
 function getTaskFromInputBox() {
-    const newTask = document.getElementById("new-task").value
-    return newTask
+    let newTask = document.getElementById("new-task")
+    const returnValue = newTask.value
+    newTask.value = ""
+    return returnValue
 }
 
 // adds the task into the tasklist array
 const appendArray = (item, array) => {
     const existingTask = array.find(task => task.task === item.task)
-    const existingStorage = storageGet("taskList") || []
+    const existingStorage = storageGet("inbox") || []
     if (!existingTask) {
         array.push(item)
         existingStorage.push(item)
-        storageSet("taskList", existingStorage)
+        storageSet("inbox", existingStorage)
 
     }
 }
@@ -47,7 +49,6 @@ function populateTaskContainer(array) {
         taskContainer.appendChild(individualTaskContainer)
     });
 }
-    // result = format(result, "dd/MM/yyyy")
 
 // consolidates all the other modules
 function createNewTask(array) {
@@ -56,8 +57,7 @@ function createNewTask(array) {
         const newTask = taskFactory(getTaskFromInputBox())
         appendArray(newTask, array)
         populateTaskContainer(array)
-        openTask(storageGet("taskList"));
-
+        openTask(storageGet("inbox"));
     })
 }
 
@@ -102,7 +102,7 @@ function openTask(array) {
 
 
 function editName() {
-	const existingStorage = storageGet("taskList");
+	const existingStorage = storageGet("inbox");
     const taskName = document.getElementById("task-name");
 
 	taskName.addEventListener("keydown", function (e) {
@@ -110,16 +110,16 @@ function editName() {
             e.preventDefault();
             const index = e.target.parentNode.parentNode.classList[0];
 			existingStorage[index].task = taskName.textContent;
-			storageSet("taskList", existingStorage);
-			populateTaskContainer(storageGet("taskList"));
+			storageSet("inbox", existingStorage);
+			populateTaskContainer(storageGet("inbox"));
             taskName.blur();
-            openTask(storageGet("taskList"))
+            openTask(storageGet("inbox"))
 		}
 	});
 }
 
 function editDescription() {
-    const existingStorage = storageGet("taskList")
+    const existingStorage = storageGet("inbox")
     const taskDescription = document.getElementById("task-description")
 
     taskDescription.addEventListener("keydown", function (e) {
@@ -127,10 +127,10 @@ function editDescription() {
             e.preventDefault();
             const index = e.target.parentNode.parentNode.classList[0];
             existingStorage[index].description = taskDescription.value;
-            storageSet("taskList", existingStorage);
-            populateTaskContainer(storageGet("taskList"))
+            storageSet("inbox", existingStorage);
+            populateTaskContainer(storageGet("inbox"))
             taskDescription.blur()
-            openTask(storageGet("taskList"));
+            openTask(storageGet("inbox"));
 
 		}
     })
@@ -139,30 +139,30 @@ function editDescription() {
 function editDate() {
 // change to today, tomorrow, next week
     const taskDate = document.getElementById("task-due-date")
-    const existingStorage = storageGet("taskList")
+    const existingStorage = storageGet("inbox")
 
     taskDate.addEventListener("change", function (e) {
         let result = new Date(taskDate.value);
         const index = e.target.parentNode.parentNode.classList[0];
         existingStorage[index].dueDate = result;
-        storageSet("taskList", existingStorage)
-        populateTaskContainer(storageGet("taskList"));
-        openTask(storageGet("taskList"));
+        storageSet("inbox", existingStorage)
+        populateTaskContainer(storageGet("inbox"));
+        openTask(storageGet("inbox"));
 
     })
 }
 
 function editPriority() {
-    const existingStorage = storageGet("taskList");
+    const existingStorage = storageGet("inbox");
     const taskPriority = document.getElementById("task-priority");
 
     taskPriority.addEventListener("click", function (e) {
         e.preventDefault()
         const index = e.target.parentNode.parentNode.parentNode.classList[0]
         existingStorage[index].priority = taskPriority.value;
-        storageSet("taskList", existingStorage);
-        populateTaskContainer(storageGet("taskList"));
-        openTask(storageGet("taskList"));
+        storageSet("inbox", existingStorage);
+        populateTaskContainer(storageGet("inbox"));
+        openTask(storageGet("inbox"));
     
     });
 }

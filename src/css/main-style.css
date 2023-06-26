@@ -58,6 +58,7 @@ ul {
 
 #projects-label {
     font-size: 30px;
+    font-weight: bold;
 }
 
 li {
@@ -92,6 +93,12 @@ li {
     overflow: auto;
 }
 
+#new-task {
+    margin-left: calc(10px + 1%);
+    margin-right: calc(10px + 1%);
+    width: calc(clamp(300px, 60vw, 1000px) - calc(150px + 1%));
+
+}
 
 .individual-task-container {
     display: flex;
@@ -105,20 +112,12 @@ li {
     border: solid red 1px;
 }
 
-#dialog-container {
-    /* display: flex; */
-    justify-content: center;
-    align-items: center;
-    /* border: solid red 2px;
-    height: 80%;
-    width: 90%;
-    position: absolute;
-    z-index: -10; */
-
-}
 
 dialog {
-    /* position:absolute; */
+    position: absolute;
+    top: -30%;
+    left: 13%;
+
 }
 
 .dialog-content {

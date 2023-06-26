@@ -4,7 +4,7 @@ import { createNewTask, populateTaskContainer, openTask, closeTask, editName, ed
 import { storageSet,storageGet } from "./modules/local-storage";
 
 
-const taskList = storageGet("taskList") || [];
+const taskList = storageGet("inbox") || [];
 //creating tasks
 populateTaskContainer(taskList)
 createNewTask(taskList)
