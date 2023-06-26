@@ -30,26 +30,28 @@
             <div id="header">Todo List</div>
             <div id="task-container">
 
-            <dialog open>
-                <div class="dialog-content">
-                    <div class="dialog-left">
-                        <h2 id="task-name"></h2>
-                        <textarea id="task-description" rows="4"></textarea>
+            <div id="dialog-container">
+                <dialog>
+                    <div class="dialog-content">
+                        <div class="dialog-left">
+                            <h2 id="task-name"></h2>
+                            <textarea id="task-description" rows="4"></textarea>
+                        </div>
+                        <div class="dialog-right">
+                            <h4>Due Date:</h4>
+                            <input id="task-due-date" type="date">
+                            <h4>Priority:</h4>
+                            <select id="task-priority">
+                                <option value="none">None</option>
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="dialog-right">
-                        <h4>Due Date:</h4>
-                        <input id="task-due-date" type="date">
-                        <h4>Priority:</h4>
-                        <select id="task-priority">
-                            <option value="none">None</option>
-                            <option value="high">High</option>
-                            <option value="medium">Medium</option>
-                            <option value="low">Low</option>
-                        </select>
-                    </div>
-                </div>
-            </dialog>
-            
+                </dialog>
+            </div>
+
                 <input type="text" id="new-task">
                 <button id="create-task-button">Create Task</button>
             </div>

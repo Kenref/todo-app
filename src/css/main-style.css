@@ -90,6 +90,7 @@ li {
     width: clamp(300px, 60vw, 1000px);
     height: 75vh;
     overflow: auto;
+
 }
 
 
@@ -105,15 +106,32 @@ li {
     border: solid red 1px;
 }
 
-dialog {
-    z-index: 1;
+#dialog-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid red 2px;
+    height: 80%;
+    width: 90%;
+    position: absolute;
+    z-index: -10;
 
-
-    width: clamp(300px, 60vw, 1000px)
 
 }
 
+
 .dialog-content {
     display: flex;
-    gap: 30%;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.dialog-right, .dialog-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-left {
+    padding-right: clamp(25px, 4vw ,150px);
 }
