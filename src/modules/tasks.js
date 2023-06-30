@@ -99,8 +99,6 @@ function openTask(array) {
 
 
 
-
-
 function editName() {
 	const existingStorage = storageGet("inbox");
     const taskName = document.getElementById("task-name");

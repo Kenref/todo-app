@@ -10,19 +10,24 @@
     <div id="root-container">
 
         <nav id="sidebar-container">
-            <ul class="ul-top">
+            <!-- <ul class="ul-top">
                 <li>Inbox</li>
                 <li>Today</li>
                 <li>This week</li>
-                <!-- <li>Someday</li> -->
+                <li>Someday</li>
                 <li>All</li>
-                <!-- <li>Logbook</li> -->
+                <li>Logbook</li>
             </ul>
-            <br>
-            <ul class="ul-bottom">
-                <p id="projects-label">Projects</p>
-                <button id="new-project">New Project</button>
+            <br> -->
+            <p id="projects-label">Projects</p>
+            <ul id="project-list" data-projects>
+                <li class="project-name">project 1</li>
+                <li class="project-name">project 2</li>
+                <li class="project-name">project 3</li>
             </ul>
+            <div data-button-container><button id="new-project" data-new-project-button>New Project</button>
+            </div>
+
         </nav>
 
         <div id="main-content-container">

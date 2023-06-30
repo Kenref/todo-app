@@ -43,7 +43,7 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    width: clamp(200px, 10vw, 350px);
+    width: 200px;
     padding: 100px 30px 0px 30px;
 
 
