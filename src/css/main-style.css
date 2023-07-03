@@ -67,10 +67,7 @@ ul {
     margin-bottom: 25px
 }
 
-.ul-bottom {
-    /* display: flex; */
 
-}
 
 .ul-bottom li {
     display: flex;
@@ -84,11 +81,16 @@ ul {
 
 li {
     font-size: 25px;
+    cursor: pointer;
     /* responsive font size */
 }
 
 #projects-label {
     font-size: 30px;
+    font-weight: bold;
+}
+
+.active-project {
     font-weight: bold;
 }
 

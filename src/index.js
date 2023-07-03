@@ -1,7 +1,7 @@
 import "normalize.css/normalize.css";
 import "./css/main-style.css";
 import { createNewTask, populateTaskContainer, openTask, closeTask, editName, editDescription, editDate, editPriority } from "./modules/tasks";
-import { populateProjectArea, addProject } from "./modules/projects";
+import { populateProjectArea, addProject, selectProject } from "./modules/projects";
 import { storageSet,storageGet } from "./modules/local-storage";
 
 
@@ -14,7 +14,7 @@ let projects = storageGet("project.storage") || []
 // createNewProject()
 populateProjectArea(projectsContainer, projects)
 addProject(projectsContainer, projects)
-
+selectProject(projectsContainer, projects)
 
 
 
